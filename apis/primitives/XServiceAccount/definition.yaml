@@ -1,0 +1,39 @@
+apiVersion: apiextensions.crossplane.io/v1
+kind: CompositeResourceDefinition
+metadata:
+  name: xserviceaccounts.platform.acme.co
+spec:
+  group: platform.acme.co
+  names:
+    kind: XServiceAccount
+    plural: xserviceaccounts
+  claimNames:
+    kind: ServiceAccount
+    plural: serviceaccounts
+  versions:
+  - name: v1alpha1
+    served: true
+    referenceable: true
+    schema:
+      openAPIV3Schema:
+        type: object
+        
+        properties:
+          spec:
+            type: object
+            description: |
+              The specification for how this service account should be
+              deployed.
+            properties:
+              parameters:
+                type: object
+                description: |
+                  The parameters indicating how this service account should
+                  be configured.
+                properties:
+                  displayName:
+                    type: string
+                    description: |
+                      A friendly name for this service account.
+            required:
+              - parameters

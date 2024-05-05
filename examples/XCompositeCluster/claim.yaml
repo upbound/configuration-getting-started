@@ -1,0 +1,9 @@
+apiVersion: platform.acme.co/v1alpha1
+kind: CompositeCluster
+metadata:
+  name: custom-cluster1
+spec:
+  parameters:
+    nodeCount: 1
+    size: small
+    location: us-central1

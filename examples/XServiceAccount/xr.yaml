@@ -1,0 +1,8 @@
+apiVersion: platform.acme.co/v1alpha1
+kind: XServiceAccount
+metadata:
+  name: Xserviceaccount1
+spec:
+  parameters:
+    displayName: "service account 1"
+    

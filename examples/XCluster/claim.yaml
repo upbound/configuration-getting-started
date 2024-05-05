@@ -1,0 +1,10 @@
+apiVersion: platform.acme.co/v1alpha1
+kind: Cluster
+metadata:
+  name: cluster1
+spec:
+  parameters:
+    initialNodeCount: 1
+    subnetworkRef: {}
+    project: acme-project
+    location: us-central1

@@ -1,0 +1,9 @@
+apiVersion: platform.acme.co/v1alpha1
+kind: XNetwork
+metadata:
+  name: network1
+spec:
+  parameters:
+    autoCreateSubnetworks: true
+    routingMode: "GLOBAL"
+    

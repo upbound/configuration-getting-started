@@ -1,0 +1,9 @@
+apiVersion: platform.acme.co/v1alpha1
+kind: Subnetwork
+metadata:
+  name: subnetwork1
+spec:
+  parameters:
+    autoCreateSubnetworks: true
+    routingMode: "GLOBAL"
+    
