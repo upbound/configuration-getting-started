@@ -11,35 +11,35 @@ spec:
     kind: Network
     plural: networks
   versions:
-  - name: v1alpha1
-    served: true
-    referenceable: true
-    schema:
-      openAPIV3Schema:
-        type: object
-        properties:
-          spec:
-            type: object
-            description: |
-              The specification for how this network should be
-              deployed.
-            properties:
-              parameters:
-                type: object
-                description: |
-                  The parameters indicating how this network should
-                  be configured.
-                properties:
-                  autoCreateSubnetworks:
-                    type: boolean
-                    description: |
-                      Whether a subnetwork should automatically get
-                      created.
-                  routingMode: 
-                    type: string 
-                    description: |
-                      The routing mode of this network.
-                required:
-                  - autoCreateSubnetworks
-            required:
-              - parameters
+    - name: v1alpha1
+      served: true
+      referenceable: true
+      schema:
+        openAPIV3Schema:
+          type: object
+          properties:
+            spec:
+              type: object
+              description: |
+                The specification for how this network should be
+                deployed.
+              properties:
+                parameters:
+                  type: object
+                  description: |
+                    The parameters indicating how this network should
+                    be configured.
+                  properties:
+                    autoCreateSubnetworks:
+                      type: boolean
+                      description: |
+                        Whether a subnetwork should automatically get
+                        created.
+                    routingMode:
+                      type: string
+                      description: |
+                        The routing mode of this network.
+                  required:
+                    - autoCreateSubnetworks
+              required:
+                - parameters

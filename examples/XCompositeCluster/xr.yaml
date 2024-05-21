@@ -2,6 +2,9 @@ apiVersion: platform.acme.co/v1alpha1
 kind: XCompositeCluster
 metadata:
   name: custom-cluster1
+  annotations:
+    render.crossplane.io/composition-path: apis/composition-basics/XCompositeCluster/composition.yaml
+    render.crossplane.io/function-path: examples/functions.yaml
 spec:
   parameters:
     nodeCount: 1

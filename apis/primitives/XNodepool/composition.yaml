@@ -8,35 +8,36 @@ spec:
     kind: XNodePool
   mode: Pipeline
   pipeline:
-  - step: compose
-    functionRef:
-      name: crossplane-contrib-function-kcl
-    input:
-      apiVersion: krm.kcl.dev/v1alpha1
-      kind: KCLRun
-      metadata:
-        name: compose-nodepool
-      spec:
-        target: Resources
-        params:
-          name: "input-instance"
-        source: |
-          oxr = option("params").oxr
-          items = [{
-              apiVersion: "nop.crossplane.io/v1alpha1"
-              kind: "NopResource"
-              metadata.name = oxr.metadata.name
-              spec.forProvider = {
-                conditionAfter = [{
-                  conditionStatus: "True"
-                  conditionType: "Ready"
-                  time: "5s"
-                }]
-                fields = {
-                  nodeConfig: oxr.spec.parameters.nodeConfig
-                }    
-              }
-          }]
-  - step: automatically-detect-ready-composed-resources
-    functionRef:
-      name: crossplane-contrib-function-auto-ready
+    - step: compose
+      functionRef:
+        name: crossplane-contrib-function-kcl
+      input:
+        apiVersion: krm.kcl.dev/v1alpha1
+        kind: KCLRun
+        metadata:
+          name: compose-nodepool
+        spec:
+          target: Resources
+          params:
+            name: "input-instance"
+          source: |
+            oxr = option("params").oxr
+            items = [{
+                apiVersion: "nop.crossplane.io/v1alpha1"
+                kind: "NopResource"
+                metadata.name = oxr.metadata.name
+                spec.forProvider = {
+                  conditionAfter = [{
+                    conditionStatus: "True"
+                    conditionType: "Ready"
+                    time: "5s"
+                  }]
+                  fields = {
+                    nodeConfig: oxr.spec.parameters.nodeConfig
+                  }
+                }
+            }]
+
+    - step: automatically-detect-ready-composed-resources
+      functionRef:
+        name: crossplane-contrib-function-auto-ready

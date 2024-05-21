@@ -2,6 +2,9 @@ apiVersion: platform.acme.co/v1alpha1
 kind: XSubnetwork
 metadata:
   name: subnetwork1
+  annotations:
+    render.crossplane.io/composition-path: apis/primitives/XSubnetwork/composition.yaml
+    render.crossplane.io/function-path: examples/functions.yaml
 spec:
   parameters:
     ipCidrRange: "10.2.0.0/16"

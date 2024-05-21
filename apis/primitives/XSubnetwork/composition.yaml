@@ -8,38 +8,39 @@ spec:
     kind: XSubnetwork
   mode: Pipeline
   pipeline:
-  - step: compose
-    functionRef:
-      name: crossplane-contrib-function-kcl
-    input:
-      apiVersion: krm.kcl.dev/v1alpha1
-      kind: KCLRun
-      metadata:
-        name: compose-subnetwork
-      spec:
-        target: Resources
-        params:
-          name: "input-instance"
-        source: |
-          oxr = option("params").oxr
-          items = [{
-              apiVersion: "nop.crossplane.io/v1alpha1"
-              kind: "NopResource"
-              metadata.name = oxr.metadata.name
-              spec.forProvider = {
-                conditionAfter = [{
-                  conditionStatus: "True"
-                  conditionType: "Ready"
-                  time: "5s"
-                }]
-                fields = {
-                  ipCidrRange: oxr.spec.parameters.ipCidrRange
-                  networkRef: oxr.spec.parameters.networkRef
-                  region: oxr.spec.parameters.region
-                  secondaryIpRange: oxr.spec.parameters.secondaryIpRange
+    - step: compose
+      functionRef:
+        name: crossplane-contrib-function-kcl
+      input:
+        apiVersion: krm.kcl.dev/v1alpha1
+        kind: KCLRun
+        metadata:
+          name: compose-subnetwork
+        spec:
+          target: Resources
+          params:
+            name: "input-instance"
+          source: |
+            oxr = option("params").oxr
+            items = [{
+                apiVersion: "nop.crossplane.io/v1alpha1"
+                kind: "NopResource"
+                metadata.name = oxr.metadata.name
+                spec.forProvider = {
+                  conditionAfter = [{
+                    conditionStatus: "True"
+                    conditionType: "Ready"
+                    time: "5s"
+                  }]
+                  fields = {
+                    ipCidrRange: oxr.spec.parameters.ipCidrRange
+                    networkRef: oxr.spec.parameters.networkRef
+                    region: oxr.spec.parameters.region
+                    secondaryIpRange: oxr.spec.parameters.secondaryIpRange
+                  }
                 }
-              }
-          }]
-  - step: automatically-detect-ready-composed-resources
-    functionRef:
-      name: crossplane-contrib-function-auto-ready
+            }]
+
+    - step: automatically-detect-ready-composed-resources
+      functionRef:
+        name: crossplane-contrib-function-auto-ready
