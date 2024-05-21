@@ -6,4 +6,3 @@ spec:
   parameters:
     autoCreateSubnetworks: true
     routingMode: "GLOBAL"
-    

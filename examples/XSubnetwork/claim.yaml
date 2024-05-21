@@ -10,4 +10,3 @@ spec:
     secondaryIpRange:
       - ipCidrRange: 192.168.10.0/24
         rangeName: test-secondary-range-update1
-    

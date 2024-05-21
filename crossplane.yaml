@@ -11,8 +11,11 @@ spec:
     version: ">=v1.15.2"
   dependsOn:
     - provider: xpkg.upbound.io/crossplane-contrib/provider-nop
+      # renovate: datasource=github-releases depName=crossplane-contrib/provider-nop
       version: "v0.2.1"
     - function: xpkg.upbound.io/crossplane-contrib/function-kcl
+      # renovate: datasource=github-releases depName=crossplane-contrib/function-kcl
       version: "v0.7.0"
     - function: xpkg.upbound.io/crossplane-contrib/function-auto-ready
+      # renovate: datasource=github-releases depName=crossplane-contrib/function-auto-ready
       version: "v0.2.1"

@@ -1,11 +1,9 @@
 apiVersion: platform.acme.co/v1alpha1
-kind: XCluster
+kind: XCompositeCluster
 metadata:
-  name: cluster1
+  name: custom-cluster1
 spec:
   parameters:
-    initialNodeCount: 1
-    networkRef: {}
-    subnetworkRef: {}
-    project: acme-project
+    nodeCount: 1
+    size: small
     location: us-central1
