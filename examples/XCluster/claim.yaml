@@ -5,6 +5,7 @@ metadata:
 spec:
   parameters:
     initialNodeCount: 1
+    networkRef: {}
     subnetworkRef: {}
     project: acme-project
     location: us-central1

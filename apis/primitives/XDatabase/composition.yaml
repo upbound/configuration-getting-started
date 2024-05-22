@@ -8,38 +8,39 @@ spec:
     kind: XDatabase
   mode: Pipeline
   pipeline:
-  - step: compose
-    functionRef:
-      name: crossplane-contrib-function-kcl
-    input:
-      apiVersion: krm.kcl.dev/v1alpha1
-      kind: KCLRun
-      metadata:
-        name: compose-database
-      spec:
-        target: Resources
-        params:
-          name: "input-instance"
-        source: |
-          oxr = option("params").oxr
-          items = [{
-              apiVersion: "nop.crossplane.io/v1alpha1"
-              kind: "NopResource"
-              metadata.name = oxr.metadata.name
-              spec.forProvider = {
-                conditionAfter = [{
-                  conditionStatus: "True"
-                  conditionType: "Ready"
-                  time: "5s"
-                }]
-                fields = {
-                  instanceClass: oxr.spec.parameters.size
-                  region: oxr.spec.parameters.region
-                  storageGb: oxr.spec.parameters.storage
+    - step: compose
+      functionRef:
+        name: crossplane-contrib-function-kcl
+      input:
+        apiVersion: krm.kcl.dev/v1alpha1
+        kind: KCLRun
+        metadata:
+          name: compose-database
+        spec:
+          target: Resources
+          params:
+            name: "input-instance"
+          source: |
+            oxr = option("params").oxr
+            items = [{
+                apiVersion: "nop.crossplane.io/v1alpha1"
+                kind: "NopResource"
+                metadata.name = oxr.metadata.name
+                spec.forProvider = {
+                  conditionAfter = [{
+                    conditionStatus: "True"
+                    conditionType: "Ready"
+                    time: "5s"
+                  }]
+                  fields = {
+                    instanceClass: oxr.spec.parameters.size
+                    region: oxr.spec.parameters.region
+                    storageGb: oxr.spec.parameters.storage
+                  }
+
                 }
-                  
-              }
-          }]
-  - step: automatically-detect-ready-composed-resources
-    functionRef:
-      name: crossplane-contrib-function-auto-ready
+            }]
+
+    - step: automatically-detect-ready-composed-resources
+      functionRef:
+        name: crossplane-contrib-function-auto-ready

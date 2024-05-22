@@ -1,11 +1,12 @@
 apiVersion: platform.acme.co/v1alpha1
-kind: XCluster
+kind: XCompositeCluster
 metadata:
-  name: cluster1
+  name: custom-cluster1
+  annotations:
+    render.crossplane.io/composition-path: apis/composition-basics/XCompositeCluster/composition.yaml
+    render.crossplane.io/function-path: examples/functions.yaml
 spec:
   parameters:
-    initialNodeCount: 1
-    networkRef: {}
-    subnetworkRef: {}
-    project: acme-project
+    nodeCount: 1
+    size: small
     location: us-central1

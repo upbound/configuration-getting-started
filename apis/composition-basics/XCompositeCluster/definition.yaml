@@ -11,41 +11,41 @@ spec:
     kind: CompositeCluster
     plural: compositeclusters
   versions:
-  - name: v1alpha1
-    served: true
-    referenceable: true
-    schema:
-      openAPIV3Schema:
-        type: object
-        properties:
-          spec:
-            type: object
-            description: |
-              The specification for how this composite cluster should be
-              deployed.
-            properties:
-              parameters:
-                type: object
-                description: |
-                  The parameters indicating how this composite cluster should
-                  be configured.
-                properties:
-                  nodeCount:
-                    type: number
-                    description: |
-                      The number of nodes for this cluster.
-                  size:
-                    type: string
-                    description: |
-                      The machine type to use for the nodes in this cluster.
-                  location:
-                    type: string
-                    description: |
-                      The geographic region this composite cluster and it's
-                      associated resources should get deployed into.
-                required:
-                  - nodeCount
-                  - size
-                  - location
-            required:
-              - parameters
+    - name: v1alpha1
+      served: true
+      referenceable: true
+      schema:
+        openAPIV3Schema:
+          type: object
+          properties:
+            spec:
+              type: object
+              description: |
+                The specification for how this composite cluster should be
+                deployed.
+              properties:
+                parameters:
+                  type: object
+                  description: |
+                    The parameters indicating how this composite cluster should
+                    be configured.
+                  properties:
+                    nodeCount:
+                      type: number
+                      description: |
+                        The number of nodes for this cluster.
+                    size:
+                      type: string
+                      description: |
+                        The machine type to use for the nodes in this cluster.
+                    location:
+                      type: string
+                      description: |
+                        The geographic region this composite cluster and it's
+                        associated resources should get deployed into.
+                  required:
+                    - nodeCount
+                    - size
+                    - location
+              required:
+                - parameters

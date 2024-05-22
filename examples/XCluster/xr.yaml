@@ -2,10 +2,14 @@ apiVersion: platform.acme.co/v1alpha1
 kind: XCluster
 metadata:
   name: cluster1
+  annotations:
+    render.crossplane.io/composition-path: apis/primitives/XCluster/composition.yaml
+    render.crossplane.io/function-path: examples/functions.yaml
 spec:
   parameters:
     initialNodeCount: 1
-    networkRef: {}
+    networkRef:
+      name: subnetwork1
     subnetworkRef: {}
     project: acme-project
     location: us-central1
