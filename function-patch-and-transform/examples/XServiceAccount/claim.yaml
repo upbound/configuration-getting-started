@@ -1,0 +1,7 @@
+apiVersion: platform.acme.co/v1alpha1
+kind: ServiceAccount
+metadata:
+  name: serviceaccount1
+spec:
+  parameters:
+    displayName: "service account 1"

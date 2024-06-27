@@ -1,0 +1,11 @@
+apiVersion: platform.acme.co/v1alpha1
+kind: XNetwork
+metadata:
+  name: network1
+  annotations:
+    render.crossplane.io/composition-path: apis/primitives/XNetwork/composition.yaml
+    render.crossplane.io/function-path: examples/functions.yaml
+spec:
+  parameters:
+    autoCreateSubnetworks: true
+    routingMode: "GLOBAL"

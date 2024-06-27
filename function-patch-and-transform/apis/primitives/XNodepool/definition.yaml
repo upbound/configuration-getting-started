@@ -1,0 +1,79 @@
+apiVersion: apiextensions.crossplane.io/v1
+kind: CompositeResourceDefinition
+metadata:
+  name: xnodepools.platform.acme.co
+spec:
+  group: platform.acme.co
+  names:
+    kind: XNodePool
+    plural: xnodepools
+  claimNames:
+    kind: NodePool
+    plural: nodepools
+  versions:
+    - name: v1alpha1
+      served: true
+      referenceable: true
+      schema:
+        openAPIV3Schema:
+          type: object
+          properties:
+            spec:
+              type: object
+              description: |
+                The specification for how this nodepool should be
+                deployed.
+              properties:
+                parameters:
+                  type: object
+                  description: |
+                    The parameters indicating how this nodepool should
+                    be configured.
+                  properties:
+                    nodeConfig:
+                      type: array
+                      description: |
+                        The parameters indicating how the nodes in
+                        this nodepool should be configured.
+                      items:
+                        type: object
+                        properties:
+                          machineType:
+                            type: string
+                            description: |
+                              The machine type to be used by the nodes in the nodepool.
+                          preemptible:
+                            type: boolean
+                            description: |
+                              Whether the nodes in this pool should be preemptible.
+                          nodeCount:
+                            type: integer
+                            description: |
+                              The number of nodes in this nodepool.
+                          serviceAccountRef:
+                            type: object
+                            description: |
+                              A reference to the service account associated with this nodepool.
+                            properties:
+                              name:
+                                type: string
+                                description: |
+                                  The name of the service account associated with this nodepool.
+                          clusterRef:
+                            type: object
+                            description: |
+                              A reference to the cluster associated with this nodepool.
+                            properties:
+                              name:
+                                type: string
+                                description: |
+                                  The name of the cluster associated with this nodepool.
+                        required:
+                          - machineType
+                          - nodeCount
+                          - serviceAccountRef
+                          - clusterRef
+                  required:
+                    - nodeConfig
+              required:
+                - parameters

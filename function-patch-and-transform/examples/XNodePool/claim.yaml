@@ -1,0 +1,12 @@
+apiVersion: platform.acme.co/v1alpha1
+kind: NodePool
+metadata:
+  name: nodepool1
+spec:
+  parameters:
+    nodeConfig:
+    - machineType: "e2-medium"
+      preemptible: true
+      nodeCount: 1
+      serviceAccountRef: {}
+      clusterRef: {}

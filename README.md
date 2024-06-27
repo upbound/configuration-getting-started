@@ -8,17 +8,17 @@ This repository contains a reference configuration for [Crossplane](https://cros
 
 This platform offers APIs for setting up a variety of basic resources that mirror what you'd find in a Cloud Service Provider such as AWS, Azure, or GCP. The resource types include:
 
-* [Cluster](apis/primitives/XCluster/), a resource that loosely represents a Kubernetes cluster.
-* [NodePool](apis/primitives/XNodePool/), a resource that loosely represents a Nodepool in a Kubernetes cluster.
-* [Database](apis/primitives/XDatabase/), a resource that loosely represents a cloud database.
-* [Network](apis/primitives/XNetwork/), a resource that loosely represents a cloud network resource.
-* [Subnetwork](apis/primitives/XSubnetwork/), a resource that loosely represents a subnetwork resource within a cloud network.
-* [Service Account](apis/primitives/XServiceAccount/), a resource that loosely represents a service account in the cloud.
+* [Cluster](function-patch-and-transform/apis/primitives/XCluster/), a resource that loosely represents a Kubernetes cluster.
+* [NodePool](function-patch-and-transform/apis/primitives/XNodePool/), a resource that loosely represents a Nodepool in a Kubernetes cluster.
+* [Database](function-patch-and-transform/apis/primitives/XDatabase/), a resource that loosely represents a cloud database.
+* [Network](function-patch-and-transform/apis/primitives/XNetwork/), a resource that loosely represents a cloud network resource.
+* [Subnetwork](function-patch-and-transform/apis/primitives/XSubnetwork/), a resource that loosely represents a subnetwork resource within a cloud network.
+* [Service Account](function-patch-and-transform/apis/primitives/XServiceAccount/), a resource that loosely represents a service account in the cloud.
 
 This configuration also demonstrates the power of Crossplane to build abstractions called "compositions", which assemble multiple basic resources into a more complex resource. These are demonstrated with:
 
-* [CompositeCluster](apis/composition-basics/XCompositeCluster/), a resource abstraction that composes a cluster, nodepool, network, subnetwork, and service account.
-* [AccountScaffold](apis/composition-basics/XAccountScaffold/), a resource abstraction that composes a service account, network, and subnetwork.
+* [CompositeCluster](function-patch-and-transform/apis/composition-basics/XCompositeCluster/), a resource abstraction that composes a cluster, nodepool, network, subnetwork, and service account.
+* [AccountScaffold](function-patch-and-transform/apis/composition-basics/XAccountScaffold/), a resource abstraction that composes a service account, network, and subnetwork.
 
 Learn more about Composite Resources in the [Crossplane
 Docs](https://docs.crossplane.io/latest/concepts/compositions/).
@@ -48,7 +48,7 @@ configuration package](https://docs.crossplane.io/latest/concepts/packages/)
 so there is a single command to install it:
 
 ```console
-up ctp configuration install xpkg.upbound.io/upbound/configuration-getting-started:v0.1.0
+up ctp configuration install xpkg.upbound.io/upbound/configuration-getting-started:v0.3.0
 ```
 
 Validate the install by inspecting the provider and configuration packages:
@@ -70,12 +70,12 @@ You can now use the managed control plane to request resources which will simula
 
 Create a custom defined cluster:
 ```console
-kubectl apply -f examples/XCluster/claim.yaml
+kubectl apply -f function-patch-and-transform/examples/XCluster/claim.yaml
 ```
 
 Create a custom defined database:
 ```console
-kubectl apply -f examples/XDatabase/claim.yaml
+kubectl apply -f function-patch-and-transform/examples/XDatabase/claim.yaml
 ```
 
 You can verify the status by inspecting the claims, composites and managed
@@ -88,7 +88,7 @@ kubectl get claim,composite,managed
 To delete the provisioned resources you would simply delete the claims:
 
 ```console
-kubectl delete -f examples/XCluster/claim.yaml,examples/XDatabase/claim.yaml
+kubectl delete -f function-patch-and-transform/examples/XCluster/claim.yaml,examples/XDatabase/claim.yaml
 ```
 
 To uninstall the provider & platform configuration:

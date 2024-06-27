@@ -1,0 +1,35 @@
+apiVersion: apiextensions.crossplane.io/v1
+kind: Composition
+metadata:
+  name: xnetworks.platform.acme.co
+spec:
+  compositeTypeRef:
+    apiVersion: platform.acme.co/v1alpha1
+    kind: XNetwork
+  mode: Pipeline
+  pipeline:
+    - step: compose
+      functionRef:
+        name: crossplane-contrib-function-patch-and-transform
+      input:
+        apiVersion: pt.fn.crossplane.io/v1beta1
+        kind: Resources
+        resources:
+        - name: nop
+          base:
+            apiVersion: nop.crossplane.io/v1alpha1
+            kind: NopResource
+            spec:
+              forProvider:
+                fields: {}
+                conditionAfter:
+                - conditionStatus: "True"
+                  conditionType: "Ready"
+                  time: "5s"
+          patches:
+          - type: FromCompositeFieldPath
+            fromFieldPath: "spec.parameters.autoCreateSubnetworks"
+            toFieldPath: "spec.forProvider.fields.autoCreateSubnetworks"
+          - type: FromCompositeFieldPath
+            fromFieldPath: "spec.parameters.routingMode"
+            toFieldPath: "spec.forProvider.fields.routingMode"

@@ -1,0 +1,12 @@
+apiVersion: platform.acme.co/v1alpha1
+kind: Subnetwork
+metadata:
+  name: subnetwork1
+spec:
+  parameters:
+    ipCidrRange: "10.2.0.0/16"
+    networkRef: {}
+    region: us-central1
+    secondaryIpRange:
+      - ipCidrRange: 192.168.10.0/24
+        rangeName: test-secondary-range-update1
