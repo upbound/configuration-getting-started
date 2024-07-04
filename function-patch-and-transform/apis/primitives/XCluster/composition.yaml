@@ -22,6 +22,10 @@ spec:
             spec:
               forProvider:
                 fields: {}
+                conditionAfter:
+                - conditionStatus: "True"
+                  conditionType: "Ready"
+                  time: "5s"
           patches:
           - type: FromCompositeFieldPath
             fromFieldPath: "spec.parameters.initialNodeCount"
