@@ -1,0 +1,58 @@
+apiVersion: apiextensions.crossplane.io/v1
+kind: CompositeResourceDefinition
+metadata:
+  name: xdatabases.platform.acme.co
+spec:
+  group: platform.acme.co
+  names:
+    kind: XDatabase
+    plural: xdatabases
+  claimNames:
+    kind: Database
+    plural: databases
+  versions:
+    - name: v1alpha1
+      served: true
+      referenceable: true
+      schema:
+        openAPIV3Schema:
+          type: object
+          properties:
+            spec:
+              type: object
+              description: |
+                The specification for how this database should be
+                deployed.
+              properties:
+                parameters:
+                  type: object
+                  description: |
+                    The parameters indicating how this database should
+                    be configured.
+                  properties:
+                    region:
+                      type: string
+                      enum:
+                        - east
+                        - west
+                      description: |
+                        The geographic region in which this database
+                        should be deployed.
+                    size:
+                      type: string
+                      enum:
+                        - small
+                        - medium
+                        - large
+                      description: |
+                        The machine size for this database.
+                    storage:
+                      type: integer
+                      description: |
+                        The storage size for this database in GB.
+                  required:
+                    - region
+                    - size
+                    - storage
+              required:
+                - parameters

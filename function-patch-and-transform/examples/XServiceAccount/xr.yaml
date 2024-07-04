@@ -1,0 +1,10 @@
+apiVersion: platform.acme.co/v1alpha1
+kind: XServiceAccount
+metadata:
+  name: serviceaccount1
+  annotations:
+    render.crossplane.io/composition-path: apis/primitives/XServiceAccount/composition.yaml
+    render.crossplane.io/function-path: examples/functions.yaml
+spec:
+  parameters:
+    displayName: "service account 1"

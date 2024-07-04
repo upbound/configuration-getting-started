@@ -1,0 +1,45 @@
+apiVersion: apiextensions.crossplane.io/v1
+kind: CompositeResourceDefinition
+metadata:
+  name: xnetworks.platform.acme.co
+spec:
+  group: platform.acme.co
+  names:
+    kind: XNetwork
+    plural: xnetworks
+  claimNames:
+    kind: Network
+    plural: networks
+  versions:
+    - name: v1alpha1
+      served: true
+      referenceable: true
+      schema:
+        openAPIV3Schema:
+          type: object
+          properties:
+            spec:
+              type: object
+              description: |
+                The specification for how this network should be
+                deployed.
+              properties:
+                parameters:
+                  type: object
+                  description: |
+                    The parameters indicating how this network should
+                    be configured.
+                  properties:
+                    autoCreateSubnetworks:
+                      type: boolean
+                      description: |
+                        Whether a subnetwork should automatically get
+                        created.
+                    routingMode:
+                      type: string
+                      description: |
+                        The routing mode of this network.
+                  required:
+                    - autoCreateSubnetworks
+              required:
+                - parameters

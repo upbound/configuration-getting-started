@@ -1,0 +1,86 @@
+apiVersion: apiextensions.crossplane.io/v1
+kind: Composition
+metadata:
+  name: xaccountscaffolds.platform.acme.co
+spec:
+  compositeTypeRef:
+    apiVersion: platform.acme.co/v1alpha1
+    kind: XAccountScaffold
+  mode: Pipeline
+  pipeline:
+    - step: compose
+      functionRef:
+        name: crossplane-contrib-function-patch-and-transform
+      input:
+        apiVersion: pt.fn.crossplane.io/v1beta1
+        kind: Resources
+        resources:
+        - name: sa-nop
+          base:
+            apiVersion: platform.acme.co/v1alpha1
+            kind: XServiceAccount
+            spec:
+              parameters: {}
+          patches:
+          - type: FromCompositeFieldPath
+            fromFieldPath: "metadata.name"
+            toFieldPath: "metadata.name"
+            transforms:
+            - type: string
+              string:
+                type: Format
+                fmt: "%s-sa"
+          - type: FromCompositeFieldPath
+            fromFieldPath: "metadata.name"
+            toFieldPath: "spec.parameters.displayName"
+            transforms:
+            - type: string
+              string:
+                type: Format
+                fmt: "%s service account"
+        - name: network-nop
+          base:
+            apiVersion: platform.acme.co/v1alpha1
+            kind: XNetwork
+            spec:
+              parameters:
+                autoCreateSubnetworks: True
+                routingMode: "GLOBAL"
+          patches:
+          - type: FromCompositeFieldPath
+            fromFieldPath: "metadata.name"
+            toFieldPath: "metadata.name"
+            transforms:
+            - type: string
+              string:
+                type: Format
+                fmt: "%s-net"
+        - name: subnet-nop
+          base:
+            apiVersion: platform.acme.co/v1alpha1
+            kind: XSubnetwork
+            spec:
+              parameters:
+                ipCidrRange: "10.2.0.0/16"
+                region: "us-central1"
+                networkRef: {}
+                secondaryIpRange:
+                - ipCidrRange: "192.168.10.0/24"
+                  rangeName: "test-secondary-range-update1"
+          patches:
+          - type: FromCompositeFieldPath
+            fromFieldPath: "metadata.name"
+            toFieldPath: "metadata.name"
+            transforms:
+            - type: string
+              string:
+                type: Format
+                fmt: "%s-subnet"
+          - type: FromCompositeFieldPath
+            fromFieldPath: "metadata.name"
+            toFieldPath: "spec.parameters.networkRef.name"
+            transforms:
+            - type: string
+              string:
+                type: Format
+                fmt: "%s-net"
