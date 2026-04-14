@@ -27,8 +27,8 @@ XPKG_REG_ORGS_NO_PROMOTE ?= xpkg.upbound.io/upbound
 XPKGS = $(PROJECT_NAME)
 -include build/makelib/xpkg.mk
 
-CROSSPLANE_NAMESPACE = upbound-system
-CROSSPLANE_ARGS = "--enable-usages"
+CROSSPLANE_NAMESPACE = crossplane-system
+CROSSPLANE_ARGS = ""
 -include build/makelib/local.xpkg.mk
 -include build/makelib/controlplane.mk
 
@@ -65,7 +65,7 @@ build.init: $(UP)
 # - UPTEST_DATASOURCE_PATH (optional), see https://github.com/upbound/uptest#injecting-dynamic-values-and-datasource
 uptest: $(UPTEST) $(KUBECTL) $(KUTTL)
 	@$(INFO) running automated tests
-	@KUBECTL=$(KUBECTL) KUTTL=$(KUTTL) CROSSPLANE_NAMESPACE=$(CROSSPLANE_NAMESPACE) $(UPTEST) e2e examples/XAccountScaffold/xr.yaml,examples/XCluster/xr.yaml,examples/XCompositeCluster/xr.yaml,examples/XDatabase/xr.yaml,examples/XNetwork/xr.yaml,examples/XNodePool/xr.yaml,examples/XServiceAccount/xr.yaml,examples/XSubnetwork/xr.yaml --data-source="${UPTEST_DATASOURCE_PATH}" --setup-script=test/setup.sh --default-timeout=2400 || $(FAIL)
+	@KUBECTL=$(KUBECTL) KUTTL=$(KUTTL) CROSSPLANE_NAMESPACE=$(CROSSPLANE_NAMESPACE) $(UPTEST) e2e examples/accountscaffold/xr.yaml,examples/cluster/xr.yaml,examples/compositecluster/xr.yaml,examples/database/xr.yaml,examples/network/xr.yaml,examples/nodepool/xr.yaml,examples/serviceaccount/xr.yaml,examples/subnetwork/xr.yaml --data-source="${UPTEST_DATASOURCE_PATH}" --setup-script=test/setup.sh --default-timeout=2400 || $(FAIL)
 	@$(OK) running automated tests
 
 # This target requires the following environment variables to be set:
@@ -84,7 +84,7 @@ render:
 	    if [[ "$$COMPOSITION" == "null" || "$$FUNCTION" == "null" ]]; then \
 	        continue; \
 	    fi; \
-		crossplane beta render $$file $$COMPOSITION $$FUNCTION -x -r; \
+		crossplane render $$file $$COMPOSITION $$FUNCTION -x -r; \
 	done
 
 yamllint:
