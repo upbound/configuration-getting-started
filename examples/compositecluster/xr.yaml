@@ -1,0 +1,13 @@
+apiVersion: platform.acme.co/v1alpha1
+kind: CompositeCluster
+metadata:
+  name: custom-cluster1
+  namespace: default
+  annotations:
+    render.crossplane.io/composition-path: apis/composition-basics/compositecluster/composition.yaml
+    render.crossplane.io/function-path: examples/functions.yaml
+spec:
+  parameters:
+    nodeCount: 1
+    size: small
+    location: us-central1

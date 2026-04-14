@@ -1,0 +1,13 @@
+apiVersion: platform.acme.co/v1alpha1
+kind: Database
+metadata:
+  name: database1
+  namespace: default
+  annotations:
+    render.crossplane.io/composition-path: apis/primitives/database/composition.yaml
+    render.crossplane.io/function-path: examples/functions.yaml
+spec:
+  parameters:
+    region: "east"
+    size: "small"
+    storage: 10

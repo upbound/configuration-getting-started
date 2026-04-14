@@ -1,0 +1,11 @@
+apiVersion: platform.acme.co/v1alpha1
+kind: AccountScaffold
+metadata:
+  name: custom-account1
+  namespace: default
+  annotations:
+    render.crossplane.io/composition-path: apis/composition-basics/accountscaffold/composition.yaml
+    render.crossplane.io/function-path: examples/functions.yaml
+spec:
+  parameters:
+    name: "test account"

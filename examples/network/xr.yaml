@@ -1,0 +1,12 @@
+apiVersion: platform.acme.co/v1alpha1
+kind: Network
+metadata:
+  name: network1
+  namespace: default
+  annotations:
+    render.crossplane.io/composition-path: apis/primitives/network/composition.yaml
+    render.crossplane.io/function-path: examples/functions.yaml
+spec:
+  parameters:
+    autoCreateSubnetworks: true
+    routingMode: "GLOBAL"

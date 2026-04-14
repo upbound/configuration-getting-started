@@ -1,7 +1,0 @@
-apiVersion: platform.acme.co/v1alpha1
-kind: AccountScaffold
-metadata:
-  name: custom-account1
-spec:
-  parameters:
-    name: "test account"
